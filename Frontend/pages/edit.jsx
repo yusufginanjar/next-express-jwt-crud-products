@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useEffect } from 'react';
-import { useParams } from "react-router-dom";
 import axios from "axios";
 
 
@@ -13,6 +12,7 @@ export default function New() {
     const [ stock, setStock] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
+    const {id} = router.query
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -21,7 +21,7 @@ export default function New() {
         }
         const fetchData = async () => {
             const response = await axios.get(
-            "http://localhost:4000/api/v1/product/" + 5,
+            "http://localhost:4000/api/v1/product/" + id,
             {
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -40,7 +40,7 @@ export default function New() {
         e.preventDefault();
         const token = localStorage.getItem("token");
         const response = await axios.post(
-        "http://localhost:4000/api/v1/product/" + 5,
+        "http://localhost:4000/api/v1/product/" + id,
         {
             name,
             price,
