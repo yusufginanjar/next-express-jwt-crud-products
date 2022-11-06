@@ -5,11 +5,13 @@ const apiAuth = require('./routes/auth')
 const apiRouter = require('./routes/api');
 const passport = require('./lib/passport');
 const restrict = require('./middlewares/restrict');
+const cors = require('cors');
 
 const app = express();
 app.use(passport.initialize());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
