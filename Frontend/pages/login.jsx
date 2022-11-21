@@ -27,7 +27,10 @@ export default function SignIn() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
+    const token = localStorage.getItem('token');
+    if (token) {
+      router.push('/');
+    }
   });
 
   const handleOnChangeInput = (e) => {
@@ -57,7 +60,7 @@ export default function SignIn() {
             icon: 'success',
             title: 'signed in successfully',
           });
-          router.push('/login');
+          router.push('/');
           dispatch(_login());
           localStorage.setItem('token', response.data.accessToken);
           localStorage.setItem('user_id', response.data.id )
