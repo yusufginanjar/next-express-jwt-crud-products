@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Cards from "../components/Card";
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const [player, setPlayer] = useState("");
   const [products, setProducts] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login');
+    } 
     async function fetchData() {
       const response = await axios.get('http://localhost:4000/api/v1/products', {
         headers: {Authorization: `Bearer ${token}`}
